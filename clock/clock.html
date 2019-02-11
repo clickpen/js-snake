@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="./clock.css">
+	<title>clock</title>
+</head>
+<body>
+	<div class="time">
+		<div class="time-go J-get-time">--:--:--</div>
+		<div class="set-clock">
+			设置闹钟：
+			<input type="number" name="H" maxlength="2">
+			时
+			<input type="number" name="M" maxlength="2">
+			分
+			<input type="number" name="S" maxlength="2">
+			秒
+			<span class="submit-set J-set">确定</span>
+			<span class="submit-cancel J-cancel">取消</span>
+		</div>
+	</div>
+	<div class="main-wrapper J-main-wrapper">
+		<div class="text-area">
+			<span class="text">lets go</span>
+		</div>
+		<div class="btn-wrapper">
+			<span class="submit J-sub">我知道了</span>
+		</div>
+	</div>
+	<script src="./jquery-3.1.1.js"></script>
+	<script src="./clock.js"></script>
+</body>
+</html>
