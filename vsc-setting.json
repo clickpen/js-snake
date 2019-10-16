@@ -1,0 +1,18 @@
+{
+    "breadcrumbs.enabled": false,
+    "files.associations": {
+        "*.josn": "json",
+        "*.vue": "vue"
+    },
+    "gitlens.hovers.currentLine.over": "line",
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "css.lint.duplicateProperties": "warning",
+    "vetur.format.defaultFormatterOptions": {
+        "prettier": {
+            "singleQuote": true,
+            "semi": false
+        }
+    },
+    "vetur.format.options.tabSize": 4,
+    "javascript.format.insertSpaceBeforeFunctionParenthesis": false
+}
