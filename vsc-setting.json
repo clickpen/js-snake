@@ -1,7 +1,7 @@
 {
     "cssrem.rootFontSize": 75,
     "[css]": {
-        "editor.defaultFormatter": "michelemelluso.code-beautifier"
+        "editor.defaultFormatter": "HookyQR.beautify"
     },
     "breadcrumbs.enabled": false,
     "[javascript]": {
