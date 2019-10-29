@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		* {
+			padding: 0;
+			margin: 0;
+		}
+		body {
+			overflow: hidden;
+		}
+		.demo {
+			position: absolute;
+			left: calc(50% - 50px);
+			top: calc(50% - 50px);
+			width: 100px;
+			height: 100px;
+			position: absolute;
+			background-color: yellow;
+			border-radius: 50%;
+			text-align: center;
+			line-height: 100px;
+			cursor: move;
+		}
+		.demo::before {
+			content: "我是可以抛的";
+		}
+		span {
+			border: 1px solid black;
+			/*position: absolute;*/
+		}
+	</style>
+</head>
+<body>
+	<div class="demo"></div>
+	<script>
+		var demo = document.getElementsByClassName('demo')[0];
+		// demo.addEventListener('click', start);
+		let Timer = null;
+		demo.onmousedown = function(e) {
+			clearInterval(Timer);
+			var event = e || window.event;
+			var disX = event.clientX - this.offsetLeft,
+				disY = event.clientY - this.offsetTop,
+				that = this;
+			var lastX = this.offsetLeft,
+				lastY = this.offsetTop,
+				iSpeedX,iSpeedY;
+			document.onmousemove = function(e) {
+				var event = e || window.event;
+				var newTopDrag = event.clientY - disY,
+					newLeftDrag = event.clientX - disX;
+				// var oSpan = document.createElement('span');
+				// oSpan.style.top = newTopDrag + 'px';
+				// oSpan.style.left = newLeftDrag + 'px';
+				// document.body.appendChild(oSpan);
+				// 每次移动过程中会重新获取坐标每次获取的坐标与上次坐标相减可得到最后一次移动后放开鼠标的速度方向和距离，距离大小表示了速度大小
+				iSpeedX = newLeftDrag - lastX;
+				iSpeedY = newTopDrag - lastY;
+				lastX = newLeftDrag;
+				lastY = newTopDrag;
+				that.style.top = newTopDrag + 'px';
+				that.style.left = newLeftDrag + 'px';
+			}
+			document.onmouseup = function() {
+				document.onmouseup = null;
+				document.onmousemove = null;
+				start(demo, iSpeedX, iSpeedY);
+				// delespan();
+			}
+		}
+		function start(obj, iSpeedX, iSpeedY) {
+			// 判断Y方向没有速度的时候不执行此方法
+			if(!iSpeedY) {
+				return;
+			}
+			// clearInterval(Timer);
+			// 定义参数: vu竖直方向撞击一次能量保留参数 hu水平摩擦因素 ia重力加速度
+			var vu = 0.9,
+				hu = 0.8,
+				iA = 8;
+			Timer =	setInterval(function() {
+				console.log(iSpeedY)
+					iSpeedY += iA;
+					// 计算当前的Top和Left
+					var newTop = demo.offsetTop + iSpeedY,
+						newLeft = demo.offsetLeft + iSpeedX;
+					if(newTop >= document.documentElement.clientHeight - demo.offsetHeight) {
+						iSpeedY *= -vu;
+						iSpeedX *= hu;
+						newTop = document.documentElement.clientHeight - demo.offsetHeight;
+					} else if (newTop <= 0) {
+						iSpeedY *= -vu;
+						iSpeedX *= hu;
+						newTop = 0;
+					}
+					if(newLeft >= document.documentElement.clientWidth - demo.offsetWidth) {
+						iSpeedX *= -hu;
+						// iSpeedY *= u;
+						newLeft = document.documentElement.clientWidth - demo.offsetWidth;
+					} else if(newLeft <= 0) {
+						iSpeedX *= -hu;
+						// iSpeedY *= u;
+						newLeft = 0;
+					}
+					demo.style.top = newTop + 'px';
+					demo.style.left = newLeft + 'px';
+					if(Math.abs(iSpeedY) < 3.12 && Math.abs(iSpeedX) < 1 && Math.floor(newTop) >= document.documentElement.clientHeight - demo.offsetHeight) {
+						iSpeedX = 0
+						iSpeedY = 0;
+						clearInterval(Timer);
+						console.log("success");
+					}
+				}, 30);		
+		}
+		// function delespan() {
+		// 	var AllSpan = document.getElementsByTagName('span');
+		// 	console.log(AllSpan.length);
+		// 	for(var i = 0, l = AllSpan.length; i < l; i++) {
+		// 		console.log(AllSpan[i]);
+		// 		document.body.removeChild(AllSpan[0]);
+		// 	}
+		// }
+	</script>
+</body>
+</html>

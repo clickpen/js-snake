@@ -1,0 +1,31 @@
+{
+    "cssrem.rootFontSize": 75,
+    "[css]": {
+        "editor.defaultFormatter": "HookyQR.beautify"
+    },
+    "breadcrumbs.enabled": false,
+    "[javascript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "HookyQR.beautify"
+    },
+    "[html]": {
+        "editor.defaultFormatter": "HookyQR.beautify"
+    },
+    "files.associations": {
+        "*.josn": "json",
+        "*.vue": "vue"
+    },
+    "gitlens.hovers.currentLine.over": "line",
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "css.lint.duplicateProperties": "warning",
+    "vetur.format.defaultFormatterOptions": {
+        "prettier": {
+            "singleQuote": true,
+            "semi": false
+        }
+    },
+    "vetur.format.options.tabSize": 4,
+    "javascript.format.insertSpaceBeforeFunctionParenthesis": false
+}
