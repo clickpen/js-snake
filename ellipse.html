@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ellipse</title>
+	<style type="text/css">
+		.test {
+			position: absolute;
+			top: 300px;
+			left: 300px;
+			width: 200px;
+			height: 200px;
+			border-radius: 50%;
+			border: 1px solid black;
+		}
+		.name {
+			display: inline-block;
+			position: absolute;
+			background-color: red;
+			border-radius: 50%;
+		}
+	</style>
+</head>
+<body>
+	<div class="test">
+		<span class="name">1</span>
+		<span class="name">1</span>
+		<span class="name">1</span>
+		<span class="name">1</span>
+		<span class="name">1</span>
+		<span class="name">1</span>
+	</div>
+	<script type="text/javascript">
+		let arr = Array.from(document.getElementsByClassName('name'));
+		let total = arr.length;
+		let dvDeg = 2 * Math.PI / total
+		let deg = 0;
+		let x = 100;
+		let y = 100;
+		let computedXY = (cb) => {
+			let disx = Math.sin(deg) * 100;
+			let disy = Math.cos(deg) * 100 * 0.5;
+			deg += dvDeg;
+			console.log(parseInt(x + disx), parseInt(y + disy), deg);
+			cb(parseInt(x - disx), parseInt(y - disy));
+		}
+		arr.forEach(ele => {
+			computedXY((x, y) => {
+				ele.style.left = x + 'px';
+				ele.style.top = y + 'px';
+			})
+			// x += 10;
+			// y += 10;
+		})
+	</script>
+</body>
+</html>
