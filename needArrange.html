@@ -13,7 +13,7 @@
 	<embed id="tts_embed_id" height="0" width="0" src="">
 	</audio> -->
 	<!-- http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&spd=5&text=语音测试1234 -->
-	<script src="./jquery-3.1.1.js"></script>
+	<script src="./jquery-3.1.1.min.js"></script>
 	<script>
 		// let config = {
 		// 	speed: 5,
@@ -61,6 +61,8 @@
 		}
 		read.init();
 		
+		// 调用计算机本地语音合成可获取speechSynthesis
+
 		// function max(num1 = 0, num2) {
 		// 	// 'use strict'
 		// 	// 在非'use strict'情况下arguments和形参保持一致
@@ -458,7 +460,7 @@
 		// 	}
 		// 	then(resolvedFn, rejectedFn) {
 		// 		if(this.status == 'resolved') {
-		// 			let res = resolvedFn(this.data);
+		// 			let res = resolvedFn && resolvedFn(this.data);
 		// 			if(res instanceof MyPromise) {
 		// 				return res;
 		// 			} else {
@@ -466,7 +468,7 @@
 		// 			}
 		// 		}
 		// 		if(this.status == 'rejected') {
-		// 			let res = rejectedFn(this.data);
+		// 			let res = rejectedFn && rejectedFn(this.data);
 		// 			if(res instanceof MyPromise) {
 		// 				return res;
 		// 			} else {
