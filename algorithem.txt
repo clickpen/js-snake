@@ -1,0 +1,57 @@
+Q：一个长度为n的数组，内部的数字均出现了偶数次，只有一个数字出现了奇数此，如何优秀的时空复杂度找到这个数字
+A：异或运算“^”，对两个相同的值进行异或运算结果为0，因此只需要对数组所有值进行异或运算即能得到重复奇数次数字
+Q：一个长度为n的数组，只有一个数字出现了次数大于或等于n/2，如何优秀的时空复杂度找到这个数字
+A1：给定arr
+       var obj = {}, maxNum = 0, account = 0, len = arr.length;
+       for (var i = 0; i < len; i++) {
+	if (obj[arr[i]]) {
+	        obj[arr[i]]++;
+	} else {
+	        obj[arr[i]] = 1;
+	}
+       }
+       for (var prop in obj) {
+	if (account < obj[prop]) {
+	        account = obj[prop];
+	        maxNum = prop;
+	        if (account >= len / 2) {
+		return;
+	        }
+	}
+       }
+       console.log(maxNum);
+A2：给定arr
+       var maxNum = arr[0], account = 0;
+       for (var i = 0, len = arr.length; i < len; i++) {
+	if (account === 0) {
+	        maxNum = arr[i];
+	}
+	if (maxNum === arr[i]) {
+	        account ++;
+	} else {
+	        account --;
+	}
+       }
+       console.log(maxNum);
+Q： 给你一个 n*m 的二维数组，每行元素保证递增，每列元素保证递增，试问如何使用优秀的时间复杂度找到某个数字（或者判断不存在）
+A： 思路：
+	1、左上角最小，右下角最大；
+	2、左下角的值为当前列最大，当前行最小，同理右上角的值为当前行最大，当前列最小；
+	3、从左下角（右上角同理）开始进行数据比较（和二叉树查找大体一致，小于当前值则列+1，大于当前值则行-1）；
+	4、左下角时限定行等于0 || 列等于最大值(也可以是当前数组值不存在)时仍没找到则找不到该值。
+[1, 21, 40, 60]
+[11, 25, 45, 71]
+[18, 29, 58, 85]
+[32 ,39, 66, 89]
+[55, 64, 75, 95]
+       实现：给定二维数组arr（将数组的第一维作为i<行>），目标值target
+       var i = arr.length - 1,j = 0;
+       while (i >= 0 && arr[i][j]) {
+	if (arr[i][j] < target) {
+	        j ++;
+	} else if (arr[i][j] > target) {
+	        i --;
+	} else {
+	        return console.log(i, j);
+	}
+       }
