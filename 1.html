@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+
+<body>
+	<script>
+		// 'use strict'
+		// window.name = "window";
+		// var cc = "bbb";
+		// function A() {
+		// 	this.name = '123';
+		// }
+		// A.prototype.getA = function() {
+		// 	console.log(this);
+		// 	return this.name + 1;
+		// }
+		// let a = new A();
+		// let funA = a.getA;
+		// funA();// 此处调用的prototype中的getA方法，此时this为undefined，因此没有name属性，直接报错
+		// 'use strict'
+		// var obj = {
+		// 	say: function() {
+		// 		console.log(this);
+		// 	}
+		// }
+		// obj.say();
+		// var myFun = obj.say;
+		// myFun();
+		// function add() {
+		// 	console.log(this);
+		// }
+		// add();
+	</script>
+	<script>
+		class Persion {
+			static name() {
+				return 'tetest';
+			};
+			static blood = 100;
+			privious = 'unknown';
+			sayName() {
+				console.log(blood, 'bibibi');
+			}
+		}
+		let persion = new Persion();
+		console.log(persion);
+
+		function Node(data, leftChild, rightChild) {
+			this.data = data;
+			this.leftChild = leftChild;
+			this.rightChild = rightChild;
+		}
+		// 	   1
+		// 	   /\
+		//    2  3
+		//   /\  /\
+		//  4 5  6 7
+		// /\    /
+		// 8 9  10
+		// pre: 1 2 4 5 3 6 7
+		// mid: 4 2 5 1 6 3 7
+		// 根据前序和中序构建二叉树
+		function rebuildTree(pre, mid) {
+			if (!pre || !mid || !pre.length || !pre.length) {
+				return;
+			} else if (pre.length != mid.length) {
+				throw Error('unexpected parameter')
+			}
+			var rootData = pre[0];
+			var rootInx = mid.indexOf(rootData);
+			var leftChildMid = mid.slice(0, rootInx);
+			var leftChildPre = pre.slice(1, leftChildMid.length + 1);
+			var rightChildMid = mid.slice(rootInx + 1);
+			var rightChildPre = pre.slice(leftChildMid.length + 1);
+			var left = rebuildTree(leftChildPre, leftChildMid);
+			var right = rebuildTree(rightChildPre, rightChildMid);
+			return new Node(rootData, left, right);
+		}
+		// 传入测试二叉树的前序和中序 构建二叉树
+		console.log(rebuildTree([1, 2, 4, 5, 3, 6, 7], [4, 2, 5, 1, 6, 3, 7]));
+		// 遍历二叉树，输出前中后序 1 => 前序; 2 => 中序; 3 => 后序;
+		var myTree = rebuildTree([1, 2, 4, 5, 3, 6, 7], [4, 2, 5, 1, 6, 3, 7]);
+
+		function eachTree(tree, type) {
+			if (!tree) {
+				return;
+			}
+			(!type || type == 1) && console.log(tree.data, 'pre');
+			eachTree(tree.leftChild, type);
+			type == 2 && console.log(tree.data, 'mid');
+			eachTree(tree.rightChild, type);
+			type == 3 && console.log(tree.data, 'aft');
+		}
+		/**
+		 *    a
+		 *     \
+		 *      b
+		 * 	 	 \
+		 *        c
+		 * 		  /\
+		 * 		 d  e
+		 * 		 /
+		 * 		f
+		 * a b c d f e
+		 * a b f d c e
+		 */
+		/**
+			a
+			/\
+			b c
+		   /\ /\
+		  d e f g
+		  \   /  \
+		   h  i  j
+		a b d h e c f i g j
+		d h b e a i f c g j
+		
+		*/
+		var test = rebuildTree(['a', 'b', 'd', 'h', 'e', 'c', 'f', 'i', 'g', 'j'], ['d', 'h', 'b', 'e', 'a', 'i', 'f', 'c', 'g', 'j']);
+	</script>
+</body>
+
+</html>
