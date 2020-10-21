@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>资源信息说明</title>
+    <script type="text/javascript" src="http://39.98.158.67:3000/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="http://39.98.158.67:3000/js/jquery.qrcode.min.js"></script>
+    <script src="./html2canvas/html2canvas.js"></script>
+    <script src="./screenShot.js"></script>
+    <link rel="stylesheet" href="./screenShot.css">
+    <style>
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+        }
+
+        .describe-header {
+            display: flex;
+            width: 100%;
+            position: relative;
+            padding: 2px 0;
+            box-sizing: border-box;
+            height: 155px;
+            border-radius: 15px;
+            background-color: wheat;
+        }
+
+        .describe-header h1 {
+            font-size: 15;
+        }
+
+        .describe-header span {
+            color: tomato;
+        }
+
+        .detail {
+            display: flex;
+            width: 100%;
+            box-sizing: border-box;
+            margin-top: 8px;
+        }
+
+        .boxImg {
+            display: flex;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        .boxImg img {
+            margin-left: 20px;
+            margin-right: 20px;
+            width: 280px;
+            height: 370px;
+        }
+        .payDescribe {
+            display: flex;
+            box-sizing: border-box;
+        }
+
+        .payDescribe ul {
+            color:darkgreen;
+        }
+
+        .payBox {
+            box-sizing: border-box;
+            text-align: center;
+            display: table-cell;
+            margin-left: 20px;
+        }
+        .payBox span {
+            color: red;
+        }
+
+        .showSuccess {
+            display: flex;
+            box-sizing: border-box;
+        }
+
+        .successTitle {
+            text-align: center;
+            color: salmon;
+            margin-top: 18px;
+        }
+
+        .showSuccess img {
+            margin-left: 10px;
+            width: 290px;
+            height: 360px;
+        }
+        .success {
+            display: table-cell;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="describe-header">
+        <h3>1、本资源绝对有效，不能激活全额退款（如有欺骗，本人不得好死！！！）
+            <br />
+            2、客服联系方式：QQ <span>1129710485</span>。如有任何疑问可咨询客服，客服全天24小时在线，欢迎来扰
+            <br />
+            3、本资源费用<span> 3.2 </span>元，扫描下面支付宝黑色二维码支付。支付前先领红包，有概率获取<span> 8.80 </span>元大红包，等于帮你赚钱！
+            <br />
+            4、<span>非常重要！！！请不要关闭本页面，支付成功会自动返回解压密码，如果未自动返回解压密码，请立即联系客服</span>
+            <br />
+            5、请保存或者直接添加客服QQ为好友，一次购买，后续终身免费提供新版本补丁
+        </h3>
+    </header>
+
+    <div class="detail">
+        <div class="boxImg">
+            <img src="http://39.98.158.67:3000/image/hb.png" alt="" />
+            <img src="http://39.98.158.67:3000/image/bg.png" alt="" />
+        </div>
+        <div class="payDescribe">
+            <ul>
+                <li>1、首先打开支付宝领取红包</li>
+                <li>2、扫码黑色二维码进行支付（如果没有二维码请刷新）</li>
+                <li>3、支付完成之后页面上会返回密码</li>
+                <li>4、如有问题请快速联系客服（说明软件: datagrip） <a href="tencent://message/?uin=1129710485">1129710485</a></li>
+                <li>5、由于二维码不支持ie浏览器，请使用chrome或者firefox</li>
+                <li>6、<a href="https://www.789zhao.com/blog/J83IK8912AC2.html" target="_blank">激活教程传送门</a></li>
+            </ul>
+        </div>
+        <div id="qrcodeParent" class="payBox">
+            <h2>解压密码：<span id="password">******</span>（支付完成之后展示密码）</h2>
+            <div id="qrcode"></div>
+        </div>
+    </div>
+    <div class="success">
+        <h2 class="successTitle">成功案例</h2>
+        <div class="showSuccess">
+            <img src="http://39.98.158.67:3000/image/success/2.png" alt="" />
+            <img src="http://39.98.158.67:3000/image/success/3.png" alt="" />
+            <img src="http://39.98.158.67:3000/image/success/4.png" alt="" />
+            <img src="http://39.98.158.67:3000/image/success/5.png" alt="" />
+            <img src="http://39.98.158.67:3000/image/success/6.png" alt="" />
+            <img src="http://39.98.158.67:3000/image/success/7.png" alt="" />
+        <div>
+    </div>
+    <script>
+        const createWebSocket = (function () {
+            return function (urlValue) {
+                if (window.WebSocket) return new WebSocket(urlValue);
+                if (window.MozWebSocket) return new MozWebSocket(urlValue);
+                return false;
+            }
+        })();
+
+        let tradeNo = new Date().getTime()
+        let socket = createWebSocket(`ws://39.98.158.67:3000?tradeNo=${tradeNo}&type=datagrip`)
+        socket.onopen = () => {
+            $(document).ready(() => {
+                //$('#qrcode').qrcode("https://www.baidu.com");
+            })
+
+        }
+
+        socket.onmessage = (serverPush) => {
+            let data = JSON.parse(serverPush.data)
+            if (data.code == 0) {
+                if (data.type == 1) {
+                    $('#qrcode').qrcode(data.qrUrl);
+                } else if (data.type == 2) {
+                    $('#password').text(data.unzip)
+                    $('#qrcode').css({ display: "none" })
+                }
+            }
+        }
+
+        socket.onclose = () => {
+            console.log("消息推送已经关闭")
+        }
+
+        socket.onerror = () => {
+            console.error("unknown error")
+        }
+    </script>
+</body>
+
+</html>
